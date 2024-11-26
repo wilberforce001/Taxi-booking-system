@@ -32,6 +32,41 @@ app.use(session({
 }));
 
 
+// Save bookings in a temporary array
+let bookings = [];
+
+// Route for taxi bookings
+app.post('/book-taxi', (req, res) => {
+  const { pickupLocation, dropoffLocation, passengerName } = req.body;
+
+  // Basic validation
+  if (!pickupLocation || !dropoffLocation || !passengerName) {
+    return res.status(400).json({ message: 'All fields are required!' });
+  }
+
+  // Create a new booking object
+  const newBooking = {
+    id: bookings.length + 1,
+    pickupLocation,
+    dropoffLocation,
+    passengerName,
+    bookingTime: new Date(),
+  };
+
+  // Save the booking
+  bookings.push(newBooking);
+
+  // Respond with success
+  res.status(201).json({ message: 'Taxi booked successfully!', booking: newBooking });
+});
+
+// Route to get all bookings (for debugging) - Useful to check if
+// bookings are being correctly stored
+app.get('/bookings', (req, res) => {
+  res.json(bookings);
+});
+
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
