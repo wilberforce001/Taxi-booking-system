@@ -1,3 +1,4 @@
+// Created database models (schemas) for User, Driver, and Booking 
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
