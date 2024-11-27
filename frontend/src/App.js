@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 function App() {
   const [pickupLocation, setPickupLocation] = useState('');
   const [dropoffLocation,setDropoffLocation] = useState('');
-  const [passengerName, setPassengerName] = useState('');
+  const [passengerName, setPassengerName] = useState(''); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -46,14 +46,15 @@ function App() {
       setError('Something went wrong! Please try again later.')
     } finally {
       setLoading(false);
+      console.log('Booking Data:', { pickupLocation, dropoffLocation, passengerName });
     }
   };
 
-  return (
+  return ( 
     <div>
       <h1>Book a Taxi</h1>
 
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>} 
       {success && <div style={{ color: 'green' }}>{success}</div>}
 
       <input
@@ -75,7 +76,7 @@ function App() {
         onChange={(e) => setPassengerName(e.target.value)}
       />
       <button onClick={bookTaxi} disabled={loading}>
-        {loading ? 'Booking...' : 'Book Taxi'}
+        {loading ? 'Booking...' : 'Book Taxi'} 
       </button>
     </div>
   )
