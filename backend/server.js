@@ -82,6 +82,36 @@ app.get('/bookings', (req, res) => {
   res.json(Booking);
 });
 
+// Endpoint for fetching available drivers
+app.get('/available-drivers', async (req, res) => {
+  try {
+    const availableDrivers = await Driver.find({ isAvailable: true });
+    res.status(200).json(availableDrivers);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Endpoint for updating ride status
+app.put('/update-ride-status/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { rideStatus } = req.body;
+
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      id,
+      { rideStatus },
+      { new: true }
+    );
+
+    if (!updatedBooking) return res.status(404).json({ message: 'Booking not found' });
+    res.status(200).json(updatedBooking);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`); 
