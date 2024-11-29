@@ -1,72 +1,109 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
+const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <nav
-    className={`navbar navbar-expand-lg fixed-top ${isMenuOpen ? 'navbar-open' : 'navbar-closed'}`}
-    style={{
-      height: '100vh',
-      transition: 'background-color 0.3s ease, width 0.3s ease',
-      backgroundColor: isMenuOpen ? '#f8f9fa' : 'transparent',
-      width: isMenuOpen ? '250px' : '60px',
-    }}
-  >
-    <div className="container-fluid" style={{ height: '100%' }}>
+      style={{
+        backgroundColor: '#343a40',
+        color: '#fff',
+        width: isSidebarOpen ? '250px' : '60px',
+        height: '100vh',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        transition: 'width 0.3s ease',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: isSidebarOpen ? 'flex-start' : 'center', // Align items to the left when open
+        zIndex: 1000,
+        overflow: 'hidden',
+      }}
+    >
+      {/* Toggle button */}
       <button
-        className="navbar-toggler"
-        type="button"
-        aria-controls="navbarNav"
-        aria-expanded={isMenuOpen ? 'true' : 'false'}
-        aria-label="Toggle navigation"
-        onClick={toggleMenu}
+        onClick={toggleSidebar}
         style={{
-          position: 'absolute',
-          top: '10px',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          background: 'none',
+          border: 'none',
+          color: '#fff',
+          fontSize: '1.5rem',
+          marginTop: '10px',
+          marginLeft: isSidebarOpen ? '20px' : '0', // Adjust toggle button position
+          cursor: 'pointer',
+          alignSelf: isSidebarOpen ? 'flex-start' : 'center',
         }}
+        aria-label="Toggle Sidebar"
       >
-        <span className="navbar-toggler-icon"></span>
+        ☰
       </button>
 
-      <div
-        className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`}
-        id="navbarNav"
+      {/* Navigation links */}
+      <ul
         style={{
-          display: isMenuOpen ? 'flex' : 'none',
-          flexDirection: 'column', // Stack links vertically when the menu is open
-          justifyContent: 'flex-start',
-          height: '100%',
-          marginTop: '50px',
+          listStyle: 'none',
+          padding: 0,
+          margin: '20px 0 0 0',
+          width: '100%',
+          textAlign: isSidebarOpen ? 'left' : 'center', // Adjust text alignment
         }}
       >
-        <ul className="navbar-nav w-100 text-center">
-          <li className="nav-item">
-            <Link className="nav-link" to="/" style={{ padding: '10px' }}>
-              Home
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/drivers" style={{ padding: '10px' }}>
-              Drivers
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/booking" style={{ padding: '10px' }}>
-              Booking
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+        <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
+          <Link
+            to="/"
+            style={{
+              color: '#fff',
+              textDecoration: 'none',
+              padding: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px', // Add spacing between icon and text
+              width: '100%',
+              justifyContent: isSidebarOpen ? 'flex-start' : 'center', // Center icon when collapsed
+            }}
+          >
+            🏠 {/* Icon */}
+            {isSidebarOpen && <span>Home</span>} {/* Show text only if sidebar is open */}
+          </Link>
+        </li>
+        <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
+          <Link
+            to="/book-taxi"
+            style={{
+              color: '#fff',
+              textDecoration: 'none',
+              padding: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              width: '100%',
+              justifyContent: isSidebarOpen ? 'flex-start' : 'center',
+            }}
+          >
+            🚖 {/* Icon */}
+            {isSidebarOpen && <span>Booking</span>}
+          </Link>
+        </li>
+        <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
+          <Link
+            to="/drivers"
+            style={{
+              color: '#fff',
+              textDecoration: 'none',
+              padding: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              width: '100%',
+              justifyContent: isSidebarOpen ? 'flex-start' : 'center',
+            }}
+          >
+            🚗 {/* Icon */}
+            {isSidebarOpen && <span>Drivers</span>}
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
