@@ -7,7 +7,6 @@ const HomePage = () => {
       {/* Header Section */}
       <header className="text-center mb-5">
         <h1 className="display-4">Welcome to Our Taxi Service</h1>
-        <Link to="/admin-dashboard">Go to Admin Dashboard</Link>
         <p className="lead text-muted">Your reliable ride anytime, anywhere.</p>
       </header>
 
@@ -26,6 +25,16 @@ const HomePage = () => {
           </li>
         </ul>
       </section>
+
+        {/* Links Section */}
+        <div className="text-center mb-5">
+          <Link to="/login" className="btn btn-primary mx-2">
+            Login
+          </Link>
+          <Link to="/register" className="btn btn-secondary mx-2">
+            Register
+          </Link>
+      </div>
 
       {/* Footer Section */}
       <footer className="text-center">

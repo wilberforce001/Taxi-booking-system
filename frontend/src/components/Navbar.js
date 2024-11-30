@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
-const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
+const Navbar = ({ isSidebarOpen, toggleSidebar, userRole, logout, isLoggedIn }) => {
   return (
     <nav
       style={{
@@ -15,7 +15,7 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
         transition: 'width 0.3s ease',
         display: 'flex',
         flexDirection: 'column',
-        alignItems: isSidebarOpen ? 'flex-start' : 'center', // Align items to the left when open
+        alignItems: isSidebarOpen ? 'flex-start' : 'center',
         zIndex: 1000,
         overflow: 'hidden',
       }}
@@ -48,6 +48,7 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
           textAlign: isSidebarOpen ? 'left' : 'center', // Adjust text alignment
         }}
       >
+        {/* User Links */}
         <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
           <Link
             to="/"
@@ -63,45 +64,75 @@ const Navbar = ({ isSidebarOpen, toggleSidebar }) => {
             }}
           >
             🏠 {/* Icon */}
-            {isSidebarOpen && <span>Home</span>} {/* Show text only if sidebar is open */}
+            {isSidebarOpen && <span>Home</span>}
           </Link>
         </li>
-        <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
-          <Link
-            to="/book-taxi"
-            style={{
-              color: '#fff',
-              textDecoration: 'none',
-              padding: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              width: '100%',
-              justifyContent: isSidebarOpen ? 'flex-start' : 'center',
-            }}
-          >
-            🚖 {/* Icon */}
-            {isSidebarOpen && <span>Booking</span>}
-          </Link>
-        </li>
-        <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
-          <Link
-            to="/drivers"
-            style={{
-              color: '#fff',
-              textDecoration: 'none',
-              padding: '10px',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              width: '100%',
-              justifyContent: isSidebarOpen ? 'flex-start' : 'center',
-            }}
-          >
-            🚗 {/* Icon */}
-            {isSidebarOpen && <span>Drivers</span>}
-          </Link>
-        </li>
+
+        {/* Admin Links */}
+        {userRole === 'admin' && (
+          <>
+            <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
+              <Link
+                to="/admin-dashboard"
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  padding: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  width: '100%',
+                  justifyContent: isSidebarOpen ? 'flex-start' : 'center',
+                }}
+              >
+                🛠 {/* Icon */}
+                {isSidebarOpen && <span>Admin Dashboard</span>}
+              </Link>
+            </li>
+            <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
+              <Link
+                to="/register-driver"
+                style={{
+                  color: '#fff',
+                  textDecoration: 'none',
+                  padding: '10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  width: '100%',
+                  justifyContent: isSidebarOpen ? 'flex-start' : 'center',
+                }}
+              >
+                ✍️ {/* Icon */}
+                {isSidebarOpen && <span>Register Driver</span>}
+              </Link>
+            </li>
+          </>
+        )}
+
+        {/* Logout Button */}
+        {isLoggedIn && (
+          <li style={{ margin: '10px 0', display: 'flex', alignItems: 'center' }}>
+            <button
+              onClick={logout}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#fff',
+                padding: '10px',
+                cursor: 'pointer',
+                width: '100%',
+                justifyContent: isSidebarOpen ? 'flex-start' : 'center',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              🚪 {/* Logout Icon */}
+              {isSidebarOpen && <span>Logout</span>}
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

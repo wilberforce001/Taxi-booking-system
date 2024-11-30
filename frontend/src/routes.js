@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/user/HomePage';
 import BookingPage from './pages/BookingPage';
 
 const Routes = () => (
