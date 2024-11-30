@@ -4,22 +4,22 @@ import Driver from '../models/Driver.js';
 const router = express.Router();
 
 // Route for registering a driver
-router.post('/register-driver', verifyAdmin, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const { name, vehicle, licenseNumber , status} = req.body;
+    const { name, vehicle, licenseNumber, status } = req.body; // Updated to 'licenseNumber'
 
     // Basic validation
-    if (!name || !vehicle || !licenseNumber ) {
-      return res.status(400).json({ message: 'Name, vehicle and license are required!' });
+    if (!name || !vehicle || !licenseNumber || !status) {  // Validation checks updated field name
+      return res.status(400).json({ message: 'Name, vehicle, license number, and status are required!' });
     }
     
     // Create a new driver
     const newDriver = new Driver({
       name,
-      vehicle,
-      licenseNumber,
+      vehicle,   // Match the field name in the schema
+      licenseNumber,  // Updated field to match schema
       status: status || 'Offline', 
-    }) 
+    });
 
     // Save the driver to the database
     await newDriver.save();
@@ -33,14 +33,14 @@ router.post('/register-driver', verifyAdmin, async (req, res) => {
 
 // Route to get all drivers
 router.get('/drivers', async (req, res) => {
-    try {
-      const drivers = await Driver.find();
-      res.status(200).json(drivers);
-    } catch (err) {
-      console.error('Error fetching drivers:', err);
-      res.status(500).json({ message: 'Failed to fetch drivers', error: err.message });
-    }
-  });
+  try {
+    const drivers = await Driver.find();
+    res.status(200).json(drivers);
+  } catch (err) {
+    console.error('Error fetching drivers:', err);
+    res.status(500).json({ message: 'Failed to fetch drivers', error: err.message });
+  }
+});
 
 // Route for updating driver availability
 router.put('/update-availability/:driverId', async (req, res) => {

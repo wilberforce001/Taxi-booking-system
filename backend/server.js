@@ -7,6 +7,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import bookingRoutes from './routes/booking.js';
+import driverRoutes from './routes/driver.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -36,6 +37,7 @@ app.use(session({
 
 // Use the booking routes
 app.use('/api', bookingRoutes);
+app.use('/drivers', driverRoutes);
 
 // Start the server
 app.listen(PORT, () => {

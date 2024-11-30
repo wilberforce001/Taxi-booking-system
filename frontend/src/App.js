@@ -8,8 +8,12 @@ import Navbar from './components/Navbar';
 import HomePage from './pages/HomePage';
 import BookingPage from './pages/BookingPage';
 import DriverPage from './pages/DriverPage';
+import AdminDashboardPage from './pages/AdminDashboardPage';
+import RegisterDriverPage from './pages/RegisterDriverPage';
+import AdminRoute from './components/AdminRoute';
 
 const App = () => {
+  const userRole = 'admin';
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Function to toggle sidebar
@@ -43,6 +47,22 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/book-taxi" element={<BookingPage />} />
             <Route path="/drivers" element={<DriverPage />} />
+            <Route 
+            path='/admin-dashboard'
+            element={
+              <AdminRoute userRole={userRole}>
+                <AdminDashboardPage />
+              </AdminRoute>
+            }
+            />
+            <Route
+            path="/register-driver"
+            element={
+            <AdminRoute userRole={userRole}>
+              <RegisterDriverPage />
+            </AdminRoute>
+            }
+            />
           </Routes>
         </main>
       </div>

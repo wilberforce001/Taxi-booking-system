@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
@@ -6,6 +7,7 @@ const HomePage = () => {
       {/* Header Section */}
       <header className="text-center mb-5">
         <h1 className="display-4">Welcome to Our Taxi Service</h1>
+        <Link to="/admin-dashboard">Go to Admin Dashboard</Link>
         <p className="lead text-muted">Your reliable ride anytime, anywhere.</p>
       </header>
 
