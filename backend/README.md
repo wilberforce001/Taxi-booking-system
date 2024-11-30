@@ -3,4 +3,4 @@
 - Install dependencies: npm install express mongoose cors bcrypt jsonwebtoken socket.io
 
 # Setup the Database
-Run MongoDB database with: mongod --dbpath "C:\mongodb_data"
+Run MongoDB database with: mongod --dbpath "C:\MongoDB"

@@ -6,7 +6,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import bookingRoutes from './routes/booking';
+import bookingRoutes from './routes/booking.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
