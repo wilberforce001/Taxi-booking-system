@@ -1,28 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 
 const DriverPage = () => {
-  const [drivers, setDrivers] = useState([]); // State to hold drivers data
-  const [loading, setLoading] = useState(true); // Loading state for data fetch
+  const [drivers, setDrivers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Fetch drivers from backend on component mount
   useEffect(() => {
     const fetchDrivers = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/drivers'); // Update with your backend URL
-        setDrivers(response.data); // Set fetched drivers to state
-        setLoading(false); // Stop loading
+        const response = await axios.get('http://localhost:5000/drivers');
+        setDrivers(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching drivers:', error);
-        setLoading(false); // Stop loading on error
+        setError('Failed to load drivers. Please try again later.');
+        setLoading(false);
       }
     };
 
     fetchDrivers();
-  }, []); // Empty array ensures this runs only on component mount
+  }, []);
+
+  const retryFetch = () => {
+    setLoading(true);
+    setError(null);
+    // Retry fetching drivers
+    const fetchDrivers = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/drivers');
+        setDrivers(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching drivers:', error);
+        setError('Failed to load drivers. Please try again later.');
+        setLoading(false);
+      }
+    };
+    fetchDrivers();
+  };
 
   if (loading) {
-    return <div>Loading drivers...</div>; // Show loading state
+    return <div>Loading drivers...</div>;
   }
 
   return (
@@ -32,6 +52,13 @@ const DriverPage = () => {
         <h1 className="display-4">Our Professional Drivers</h1>
         <p className="lead text-muted">Meet the drivers who will take you to your destination with care.</p>
       </header>
+
+      {/* Error Handling */}
+      {error && (
+        <div className="alert alert-danger">
+          {error} <button onClick={retryFetch} className="btn btn-sm btn-primary ml-3">Retry</button>
+        </div>
+      )}
 
       {/* Driver List Section */}
       <section>

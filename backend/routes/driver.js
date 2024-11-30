@@ -32,10 +32,10 @@ router.post('/', async (req, res) => {
 });
 
 // Route to get all drivers
-router.get('/drivers', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const drivers = await Driver.find();
-    res.status(200).json(drivers);
+    const drivers = await Driver.find();  // Fetch drivers from the database
+    res.status(200).json(drivers);  // Send the drivers as a JSON response
   } catch (err) {
     console.error('Error fetching drivers:', err);
     res.status(500).json({ message: 'Failed to fetch drivers', error: err.message });
