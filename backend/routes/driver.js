@@ -1,10 +1,11 @@
 import express from 'express';
 import Driver from '../models/Driver.js';
+import { verifyAdmin } from '../auth/authMiddleware.js';
 
 const router = express.Router();
 
 // Route for registering a driver
-router.post('/', async (req, res) => {
+router.post('/', verifyAdmin, async (req, res) => {
   try {
     const { name, vehicle, licenseNumber, status } = req.body; // Updated to 'licenseNumber'
 

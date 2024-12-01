@@ -28,12 +28,13 @@ const RegisterUserPage = () => {
     setSuccess(false);
 
     try {
-      const response = await axios.post('/api/users/register', formData);
+      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
       if (response.status === 201) {
         setSuccess(true);
         setTimeout(() => navigate('/login'), 2000); // Redirect to login page after success
       }
     } catch (err) {
+        console.error(err);
       setError(err.response?.data?.message || 'Something went wrong.');
     }
   };

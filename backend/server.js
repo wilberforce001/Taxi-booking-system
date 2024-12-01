@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import session from 'express-session';
+import authRoutes from './auth/authRoutes.js';
 import bookingRoutes from './routes/booking.js';
 import driverRoutes from './routes/driver.js';
 
@@ -36,6 +37,7 @@ app.use(session({
 }));
 
 // Use the booking routes
+app.use('/api/auth', authRoutes);
 app.use('/api', bookingRoutes);
 app.use('/drivers', driverRoutes);
 
